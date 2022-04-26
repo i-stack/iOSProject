@@ -15,7 +15,7 @@
 #import "SINTabBar.h"
 #import "PresentAnimator.h"
 
-@interface SINTabBarController ()
+@interface SINTabBarController ()<UITabBarControllerDelegate>
 
 @end
 
@@ -23,13 +23,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tabBar.tintColor = [UIColor orangeColor];
-    self.tabBar.unselectedItemTintColor = [UIColor darkTextColor];
-    [self setValue:[NSValue valueWithUIOffset:UIOffsetMake(0, -3)] forKeyPath:LMJKeyPath(self, titlePositionAdjustment)];
-    [self addTabarItems];
+    [self setUpTabBar];
     [self addChildViewControllers];
+    [self addTabarItems];
+    self.delegate = self;
 }
-
 
 
 /**
@@ -47,7 +45,7 @@
 
         // 封装好了, 直接在 block 里边写动画
         [PresentAnimator viewController:weakself presentViewController:[[LMJNavigationController alloc] initWithRootViewController:publishVc] presentViewFrame:[UIScreen mainScreen].bounds animated:YES completion:nil animatedDuration:0.5 presentAnimation:^(UIView *presentedView, UIView *containerView, void (^completionHandler)(BOOL finished)) {
-            
+
             containerView.transform = CGAffineTransformMakeTranslation(0, -kScreenHeight);
             [UIView animateWithDuration:0.5 animations:^{
                 containerView.transform = CGAffineTransformIdentity;
@@ -56,12 +54,14 @@
             }];
             
         } dismissAnimation:^(UIView *dismissView, void (^completionHandler)(BOOL finished)) {
+            
             CGAffineTransform transform = CGAffineTransformMakeScale(0.2, 0.2);
             [UIView animateWithDuration:1 animations:^{
                 dismissView.transform = CGAffineTransformRotate(transform, M_PI);
             } completion:^(BOOL finished) {
                 completionHandler(finished);
             }];
+            
         }];
     }];
     
@@ -89,35 +89,45 @@
 - (void)addTabarItems
 {
     NSDictionary *firstTabBarItemsAttributes = @{
-                                                 CYLTabBarItemTitle : @"首页",
-                                                 CYLTabBarItemImage : @"tabbar_home",
-                                                 CYLTabBarItemSelectedImage : @"tabbar_home_highlighted",
+                                                 @"TabBarItemTitle" : @"首页",
+                                                 @"TabBarItemImage" : @"tabbar_home",
+                                                 @"TabBarItemSelectedImage" : @"tabbar_home_highlighted",
                                                  };
     
     NSDictionary *secondTabBarItemsAttributes = @{
-                                                  CYLTabBarItemTitle : @"消息",
-                                                  CYLTabBarItemImage : @"tabbar_message_center",
-                                                  CYLTabBarItemSelectedImage : @"tabbar_message_center_highlighted",
+                                                  @"TabBarItemTitle" : @"消息",
+                                                  @"TabBarItemImage" : @"tabbar_message_center",
+                                                  @"TabBarItemSelectedImage" : @"tabbar_message_center_highlighted",
                                                   };
     NSDictionary *thirdTabBarItemsAttributes = @{
-                                                 CYLTabBarItemTitle : @"发现",
-                                                 CYLTabBarItemImage : @"tabbar_discover",
-                                                 CYLTabBarItemSelectedImage : @"tabbar_discover_highlighted",
+                                                 @"TabBarItemTitle" : @"发现",
+                                                 @"TabBarItemImage" : @"tabbar_discover",
+                                                 @"TabBarItemSelectedImage" : @"tabbar_discover_highlighted",
                                                  };
     
     NSDictionary *fourthTabBarItemsAttributes = @{
-                                                  CYLTabBarItemTitle : @"我的",
-                                                  CYLTabBarItemImage : @"tabbar_profile",
-                                                  CYLTabBarItemSelectedImage : @"tabbar_profile_highlighted"
+                                                  @"TabBarItemTitle" : @"我的",
+                                                  @"TabBarItemImage" : @"tabbar_profile",
+                                                  @"TabBarItemSelectedImage" : @"tabbar_profile_highlighted"
                                                   };
     
-    self.tabBarItemsAttributes = @[
+    NSArray<NSDictionary *>  *tabBarItemsAttributes = @[
                                    firstTabBarItemsAttributes,
                                    secondTabBarItemsAttributes,
                                    thirdTabBarItemsAttributes,
                                    fourthTabBarItemsAttributes
                                    ];
     
+    [self.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        obj.tabBarItem.title = tabBarItemsAttributes[idx][@"TabBarItemTitle"];
+        obj.tabBarItem.image = [UIImage imageNamed:tabBarItemsAttributes[idx][@"TabBarItemImage"]];
+        obj.tabBarItem.selectedImage = [UIImage imageNamed:tabBarItemsAttributes[idx][@"TabBarItemSelectedImage"]];
+        obj.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -3);
+    }];
+    
+    self.tabBar.tintColor = [UIColor orangeColor];
+    self.tabBar.unselectedItemTintColor = [UIColor darkTextColor];
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController

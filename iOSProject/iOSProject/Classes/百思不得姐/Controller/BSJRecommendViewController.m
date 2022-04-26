@@ -51,11 +51,12 @@
         LMJWeak(self);
         [self.recommendSevice getRecommendCategorys:^(NSError *error) {
             [weakself dismissLoading];
-            
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wint-conversion"
             [weakself.view configBlankPage:0 hasData:!error hasError:error reloadButtonBlock:^(id sender) {
                 [weakself getCategorys];
             }];
-            
+#pragma clang diagnostic pop
             if (error) {
                 [weakself.view makeToast:error.localizedDescription];
             }
@@ -126,7 +127,8 @@
         cell = [BSJReommmendCategoryCell reommmendCategoryCellWithTableView:tableView];
         BSJReommmendCategoryCell *categoryCell = (BSJReommmendCategoryCell *)cell;
         categoryCell.category = self.recommendSevice.recommendCategorys[indexPath.row];
-    }else if (tableView == self.tableView) {
+    }else // if (tableView == self.tableView)
+    {
         cell = [BSJRecommendUserCell userCellWithTableView:tableView];
         BSJRecommendUserCell *userCell = (BSJRecommendUserCell *)cell;
         userCell.user = BSJSelectedCategory.users[indexPath.row];

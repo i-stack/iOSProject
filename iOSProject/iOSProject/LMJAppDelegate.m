@@ -20,6 +20,11 @@
     
     self.window.rootViewController = [[LMJTabBarController alloc] init];
     
+    // 检查更新
+    [[LMJRequestManager sharedManager] GET:[LMJNJHuBaseUrl stringByAppendingPathComponent:@"jsons/updateapp.json"] parameters:nil completion:^(LMJBaseResponse *response) {
+        [self checkVersion:response];
+    }];
+    
     // 欢迎视图
     [LMJIntroductoryPagesHelper showIntroductoryPageView:@[@"intro_0.jpg", @"intro_1.jpg", @"intro_2.jpg", @"intro_3.jpg"]];
     
@@ -34,12 +39,12 @@
     [self.window addSubview:[[YYFPSLabel alloc] initWithFrame:CGRectMake(20, 70, 0, 0)]];
     
     // 友盟统计
-    [LMJUMengHelper UMAnalyticStart];
+//    [LMJUMengHelper UMAnalyticStart];
     // 友盟社交化
-    [LMJUMengHelper UMSocialStart];
+//    [LMJUMengHelper UMSocialStart];
     // 友盟推送
-    [LMJUMengHelper UMPushStart:launchOptions];
-    
+//    [LMJUMengHelper UMPushStart:launchOptions];
+
     if (launchOptions) {
         [UIAlertController mj_showAlertWithTitle:@"有launchOptions!!" message:launchOptions.description appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
             alertMaker.addActionCancelTitle(@"cancel").addActionDestructiveTitle(@"按钮1");
@@ -53,7 +58,7 @@
 
 #pragma mark -应用跳转
 //Universal link
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
     if (userActivity.webpageURL) {
         NSLog(@"%@", userActivity.webpageURL);
@@ -68,6 +73,17 @@
     return YES;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+        BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+    if (!result) {
+        // 其他如支付等SDK的回调
+        
+    }
+    return result;
+}
+#pragma clang diagnostic pop
 //iOS9+scheme跳转
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(nonnull NSDictionary *)options
 {
@@ -81,32 +97,11 @@
     if (url) {
         NSLog(@"%@", url);
         [UIAlertController mj_showAlertWithTitle:@"iOS9+scheme跳转应用" message:url.description appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-            
+
             alertMaker.addActionDefaultTitle(@"确认");
         } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-            
-        }];
-    }
-    
-    return result;
-}
 
-// 支持所有iOS9以下系统,scheme 跳转
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
-    
-    if (!result) {
-        // 其他如支付等SDK的回调   
-    }
-    if (url) {
-        NSLog(@"%@", url);
-        [UIAlertController mj_showAlertWithTitle:@"iOS9以下系统scheme跳转应用" message:url.description appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
-            
-            alertMaker.addActionDefaultTitle(@"确认");
-        } actionsBlock:nil];
-        
+        }];
     }
     
     return result;
@@ -126,7 +121,7 @@
 
         alertMaker.addActionDefaultTitle(@"确认");
     } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
-        
+
     }];
 }
 
@@ -185,6 +180,53 @@
     }
 }
 
+
+#pragma mark - checkVersion
+- (void)checkVersion:(LMJBaseResponse *)response
+{
+    if (response.error || LMJIsEmpty(response.responseObject)) {
+        return;
+    }
+    
+    NSDictionary *responseData = response.responseObject;
+    NSInteger lastest = [responseData[@"lastest"] integerValue];
+    NSString *lastestUrl = responseData[@"lastestUrl"];
+    
+    if (!lastest || LMJIsEmpty(lastestUrl)) {
+        return;
+    }
+    
+    BOOL isForce = [responseData[@"isForce"] boolValue];
+    // 是否在审核
+    BOOL isInGod = [responseData[@"isInGod"] boolValue];
+    NSInteger minSupport = [responseData[@"minSupport"] integerValue];
+    NSString *suggestion = responseData[@"suggestion"];
+    
+    NSInteger currentVersion = [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] integerValue];
+    
+    if (currentVersion < lastest) {
+        [UIAlertController mj_showAlertWithTitle:@"提示" message:suggestion appearanceProcess:^(JXTAlertController * _Nonnull alertMaker) {
+            
+            alertMaker.addActionDefaultTitle(@"确认升级");
+            if (!isForce && minSupport <= currentVersion) {
+                alertMaker.addActionCancelTitle(@"先用着吧");
+            }
+            
+        } actionsBlock:^(NSInteger buttonIndex, UIAlertAction * _Nonnull action, JXTAlertController * _Nonnull alertSelf) {
+            
+            if (buttonIndex == 0) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:lastestUrl] options:@{} completionHandler:^(BOOL success) {
+                    NSLog(@"%d", success);
+                }];
+            }
+        }];
+    }else {
+        if (isInGod) {
+//            LMJNJIsInGod = isInGod;
+//            self.window.rootViewController = [[LMJTabBarController alloc] init];
+        }
+    }
+}
 
 #pragma mark - getter
 - (UIWindow *)window

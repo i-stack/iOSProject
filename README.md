@@ -1,4 +1,14 @@
 <p align="right"><b>Github 点个赞↑👍,感谢您的支持!</b></p>
+
+<div>
+<h3>近期更新</h3>
+<ul>
+<li><a href="https://github.com/NJHu/swiftProject">swiftProject组件化</a></li>
+<li>RSA 加密解密</li>
+<li>iOS UniversalLink 通用链接 Demo(任意浏览器和WebView打开App)</li>
+</ul>
+</div>
+
 <div>
 <img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images//home.gif" width="24%"><img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/jc.gif" width="24%"><img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/anidynquar.gif" width="24%">
 </div>
@@ -19,38 +29,25 @@
 </ul>
 </li>
 <li><a href="#homeBaseShareLogin">分享和第三方登录</a></li>
-<li><a href="#demo_s">综合案例 Apps 模仿</a>
-<ul>
-<li><a href="#bsj">模仿百思不得姐App-BSJ</a></li>
-<li><a href="#wb">模仿微博App-NJSina</a></li>
-<li><a href="#qqmusic">音乐音频播放-Music</a></li>
-<li><a href="#videos">列表视频-Video</a></li>
-</ul>
-</li>
 <li><a href="#other_s">Others 其他</a></li>
 <li><a href="#qidai">期待</a></li>
-</ul>
-</td>
-<td>
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/nj.jpg" width="150px" height="180px">
-</td>
-<td rowspan="2">
-<ul>
-<li>
-GitHub: <a href="https://github.com/njhu">NJHu</a>
-</li>
-<li>
-Blog: <a href="https://www.weibo.com/njhu" rel="nofollow">NJHu 微博</a>
-</li>
-<li>
-Email: <a href="mailto:64hp@163.com">64hp@163.com</a>
-</li>
 </ul>
 </td>
 </tr>
 <tr>
 <td>
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/qun.jpg" width="150px" height="180px">
+<li>
+GitHub: <a href="https://github.com/njhu">NJHu</a>
+</li>
+<li>
+简书: <a href="https://www.jianshu.com/u/dbc8e7afeb3d">NJHu 简书</a>
+</li>
+<li>
+Blog: <a href="https://www.weibo.com/njhu">NJHu 微博</a>
+</li>
+<li>
+Email: <a href="mailto:64hp@163.com">64hp@163.com</a>
+</li>
 </td>
 </tr>
 </table>
@@ -96,91 +93,11 @@ Email: <a href="mailto:64hp@163.com">64hp@163.com</a>
 </div>
 <br>
 <br>
-<br>
 
-<h2><a id="demo_s">综合案例 Apps 模仿</a></h2>
-<div>
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/demos.png" width="31%">
-</div>
-
-<h3><a id="bsj">模仿百思不得姐App-BSJ</a></h3>
-<div>
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsqb.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bssp.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bstp.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsjz.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsdz.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsyp.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsdl.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsdl_1.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsgg.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsfb.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsfb_1.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsfb_2.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bspl.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsrp.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsrp_1.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bs2ts.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/bsj/bsfx.png" width="31%">
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<h3><a id="wb">模仿微博App-NJSina</a></h3>
-<div>
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/wb/wb1.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/wb/wb2.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/wb/wb3.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/wb/wb4.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/wb/wb5.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/wb/wb6.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/wb/wb7.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/wb/wb8.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/wb/wb9.png" width="31%">
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<h3><a id="qqmusic">音乐音频播放-Music</a></h3>
-<div>
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/qqmusic/mus1.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/qqmusic/mus2.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/qqmusic/mus3.png" width="31%">
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-<h3><a id="videos">列表视频-Video</a></h3>
-<div>
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/sp/sycoll.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/sp/sytab.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/sp/sylb.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/sp/syxz.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/sp/clp.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/sp/cltp.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/sp/yep.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/sp/tap.png" width="31%">|
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/sp/tatp.png" width="31%">
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 <h2><a id="other_s">其他</a></h2> 
 <div>
-<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/others.png" width="31%">|
+<img src="https://raw.githubusercontent.com/NJHu/iOSProject/master/images/others.png" width="24%">
 </div>
 
 <h2><a id="qidai">期待</a></h2>

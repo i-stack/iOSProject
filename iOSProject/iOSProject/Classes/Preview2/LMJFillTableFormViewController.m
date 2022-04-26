@@ -19,13 +19,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight * 0.7)];
+    
     LMJWeak(self);
     LMJWordItem *item0 = [LMJWordArrowItem itemWithTitle:@"系统设置" subTitle: nil];
     item0.image = [UIImage imageNamed:@"mine-setting-icon"];
     [item0 setItemOperation:^void(NSIndexPath *indexPath){
-        
         [weakself.view makeToast:@"跳转成功"];
-        
     }];
     
     LMJWordItem *item1 = [LMJWordItem itemWithTitle:@"姓名" subTitle:@"请输入姓名"];
@@ -42,6 +43,7 @@
             textF = [[UITextField alloc] init];
             textF.tag = indexPath.row + 100;
             textF.delegate = self;
+            textF.lmj_size = CGSizeMake(1, 100);
 //            textF.textColor = [UIColor clearColor];
 //            textF.borderStyle = UITextBorderStyleNone;
             [cell.contentView addSubview:textF];
@@ -58,30 +60,22 @@
     [item2 setItemOperation:^void(NSIndexPath *indexPath){
         
         [[MOFSPickerManager shareManger] showPickerViewWithDataArray:@[@"男",@"女"] tag:1 title:nil cancelTitle:@"取消" commitTitle:@"确定" commitBlock:^(NSString *string) {
-            
             weakitem2.subTitle = string;
             [weakself.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
-            
         } cancelBlock:^{
             
-            
         }];
-        
     }];
     
     LMJWordItem *item3 = [LMJWordArrowItem itemWithTitle:@"生日" subTitle: @"请选择出生日期"];
     item3.subTitleColor = [UIColor lightGrayColor];
     LMJWeak(item3);
     [item3 setItemOperation:^void(NSIndexPath *indexPath){
-        
         [[MOFSPickerManager shareManger] showDatePickerWithTag:1 commitBlock:^(NSDate *date) {
-            
             weakitem3.subTitle = [date stringWithFormat:@"yyyy-MM-dd"];
             [weakself.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
         } cancelBlock:^{
-            
         }];
-        
     }];
     
     
@@ -99,6 +93,7 @@
             textF = [[UITextField alloc] init];
             textF.tag = indexPath.row + 100;
             textF.delegate = self;
+            textF.lmj_size = CGSizeMake(1, 100);
 //            textF.textColor = [UIColor clearColor];
 //            textF.borderStyle = UITextBorderStyleNone;
             [cell.contentView addSubview:textF];
@@ -107,6 +102,7 @@
         
         [textF becomeFirstResponder];
     }];
+    
     
     
     LMJItemSection *section0 = [LMJItemSection sectionWithItems:@[item4, item3, item2, item1, item0] andHeaderTitle:nil footerTitle:nil];
@@ -142,7 +138,24 @@
     return 10;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    LMJWordItem *item = self.sections[indexPath.section].items[indexPath.row];
+    
+    NSString *ID = [NSString stringWithFormat:@"%@%zd", LMJSettingCell.class, indexPath.row];
+    LMJSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if(cell == nil)
+    {
+        cell = [[LMJSettingCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
+    }
+    cell.item = item;
+    return cell;
+}
 
+#pragma mark - LMJTextViewControllerDataSource
+- (BOOL)textViewControllerEnableAutoToolbar:(LMJTextViewController *)textViewController {
+    return NO;
+}
 
 #pragma mark - LMJNavUIBaseViewControllerDataSource
 

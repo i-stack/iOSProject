@@ -7,6 +7,8 @@
 //
 
 #import "AdvertiseView.h"
+#import <YYAnimatedImageView.h>
+#import <YYImage.h>
 
 NSString *const NotificationContants_Advertise_Key = @"NotificationContants_Advertise_Key";
 
@@ -92,7 +94,7 @@ static const NSUInteger showtime = 5;
             [weakself dismiss];
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [_countBtn setTitle:[NSString stringWithFormat:@"跳过%d",timeout] forState:UIControlStateNormal];
+                [self->_countBtn setTitle:[NSString stringWithFormat:@"跳过%d",timeout] forState:UIControlStateNormal];
             });
             timeout--;
         }
@@ -103,7 +105,9 @@ static const NSUInteger showtime = 5;
 // 移除广告页面
 - (void)dismiss
 {
-    dispatch_cancel(_gcdTimer);
+    if (_gcdTimer) {
+        dispatch_cancel(_gcdTimer);
+    }
     _gcdTimer = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:0.3f animations:^{

@@ -88,7 +88,7 @@
             }];
             
             // 添加 Timer, 开启 RunLoop
-            [[NSRunLoop currentRunLoop] addTimer:weakself.timers[indexPath] forMode:NSRunLoopCommonModes];
+            [[NSRunLoop currentRunLoop] addTimer:weakself.timers[indexPath] forMode:NSDefaultRunLoopMode];
             // 或者添加 NSPort, 开启 RunLoop
             // [[NSRunLoop currentRunLoop] addPort:[NSPort port] forMode:NSRunLoopCommonModes];
             
@@ -201,7 +201,6 @@
 
 #pragma mark - null
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    [super tableView:tableView cellForRowAtIndexPath:indexPath];
     LMJWordItem *item = self.sections[indexPath.section].items[indexPath.row];
     LMJSettingCell *cell = [LMJSettingCell cellWithTableView:tableView andCellStyle:UITableViewCellStyleSubtitle];
     cell.item = item;

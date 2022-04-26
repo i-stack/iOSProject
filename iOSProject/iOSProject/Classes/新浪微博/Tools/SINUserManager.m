@@ -7,7 +7,7 @@
 //
 
 #import "SINUserManager.h"
-#import <HMEmoticonManager.h>
+//#import <HMEmoticonManager.h>
 #import "LMJUMengHelper.h"
 
 @interface SINUserManager ()
@@ -16,8 +16,7 @@
 
 @implementation SINUserManager
 
-- (BOOL)isLogined
-{
+- (BOOL)isLogined {
     if (!self.accessToken) {
         return NO;
     }
@@ -44,12 +43,15 @@
         NSLog(@"%@", result.iconurl);
         NSLog(@"%@", result.name);
         NSLog(@"%@", result.originalResponse);
+        
         self.name = result.name;
         self.expiration = result.expiration;
         self.accessToken = result.accessToken;
         self.iconurl = result.iconurl;
         self.uid = result.uid;
-        [HMEmoticonManager sharedManager].userIdentifier = self.uid;
+        
+//        [HMEmoticonManager sharedManager].userIdentifier = self.uid;
+        
         [self saveToFile];
         completion(nil);
     }];
@@ -95,16 +97,14 @@
 {
     self = [super init];
     if (self) {
-
         // 测试作者信息, 自己获取请注释
         if ([LMJThirdSDKSinaAppKey isEqualToString:@"4061770881"]) {
             _name = @"NJ影伴人久";
-            _accessToken = @"2.00afSYxFZJms7E8e40f0acedp4pUnD";
+            _accessToken = @"2.00afSYxFZJms7Eb7fba204741DuUPB";
             _iconurl = @"https://tvax3.sinaimg.cn/crop.1.0.510.510.180/005XyiFAly8fescv0z62zj30e80e6q3o.jpg";
             _uid = @"5460642906";
             _expiration = [NSDate distantFuture];
         }
-
     }
     return self;
 }
